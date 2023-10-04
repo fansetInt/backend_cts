@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const NewCertSchema = new mongoose.Schema({
-    companyNamet:String,
-     dateissued: Date,
-     dateexpired:Date,
-     vehiclesMonitored:String
+    companyName:String,
+     dateIssued: Date,
+     dateExpired:Date,
+     vehilesMonitored:[String]
     });
    
-const NewCertModel = mongoose.model("NewCert",NewCertSchema);
+const Certficate = mongoose.model("Certficate",NewCertSchema);
 
-export default NewCertModel;
+export default Certficate;
