@@ -1,12 +1,12 @@
 
 import express from 'express';
 import  connectDb  from './utils/connectToDb.js';
-import authRoutes from './routes/auth/authRoutes.js';
+import certificateRoutes from './routes/certificate/certificateRoutes.js';
 
 const app = express();
 
 app.use(express.json());
-app.use("/auth" ,authRoutes)
+app.use("/certificate" ,certificateRoutes)
 
 // Listen on port 2000
 app.listen(2000,  async() => {
