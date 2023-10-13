@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Certficate from "../../models/NewCertModel.js";
 
 export const createCertificateService = async ( certificateDetailsObject) =>{
@@ -17,4 +18,21 @@ export const findCertificateByQuery = async (searchCriteria)  =>{
 //function to delete by id
 export const deleteCertificateByIdService = async(certificateId)=>{
     return await Certficate.findByIdAndDelete(certificateId)
+}
+
+
+//function to update a certificate
+export const updateCertificateService = async ( newUpdates) =>{
+let certificateId = newUpdates.certificateId
+
+
+const filter = { _id:  new  mongoose.mongo.ObjectId(certificateId)};
+const update = newUpdates
+
+// `doc` is the document _after_ `update` was applied because of
+// `new: true`
+return await Certficate.findOneAndUpdate(filter, update, {
+  new: true
+});
+
 }

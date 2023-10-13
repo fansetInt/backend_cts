@@ -1,7 +1,7 @@
 
 // this file is the entry of all http calls
 
-import { createCertificateService, deleteCertificateByIdService, findCertificateById, findCertificateByQuery } from "../../service/certificateService/certificateService.js"
+import { createCertificateService, deleteCertificateByIdService, findCertificateById, findCertificateByQuery, updateCertificateService } from "../../service/registrationService/registrationService.js"
 
 export const addCerticate =   async (req , res) =>{
 
@@ -49,4 +49,13 @@ export const deleteCertificateById = async(req,res)=>{
     let foundCertificate = await deleteCertificateByIdService(certificateId)
 
     return res.status(200).json(certificateId)
+}
+
+export const updateCertificateController = async(req,res)=>{
+    
+    let newUpdates = req.body
+
+    let foundCertificate = await updateCertificateService(newUpdates)
+
+    return res.status(200).json(foundCertificate)
 }
