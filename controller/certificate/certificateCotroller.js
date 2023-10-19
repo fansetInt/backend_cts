@@ -1,7 +1,7 @@
 
 // this file is the entry of all http calls
 
-import { createCertificateService, deleteCertificateByIdService, findCertificateById, findCertificateByQuery, updateCertificateService } from "../../service/registrationService/registrationService.js"
+import { createCertificateService, deleteCertificateByIdService, findCertificateById, findCertificateByQuery, updateCertificateService } from "../../service/certificateService/certificateService.js"
 
 export const addCerticate =   async (req , res) =>{
 

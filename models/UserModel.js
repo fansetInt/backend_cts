@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-// password should have a minimun of 3 characters
 
 const UserSchema = new mongoose.Schema({
     username:{
@@ -8,8 +7,11 @@ const UserSchema = new mongoose.Schema({
         unique:true
     },
     password: {
-        type:String,
-    }
+        type: String,
+        required: true,
+        minlength: 4,
+        maxlength: 16,
+      },
     });
    
 const UserModel = mongoose.model("User",UserSchema);
