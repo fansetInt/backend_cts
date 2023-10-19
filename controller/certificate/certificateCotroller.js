@@ -1,16 +1,20 @@
 
 // this file is the entry of all http calls
 
-import { createCertificateService, deleteCertificateByIdService, findCertificateById, findCertificateByQuery, updateCertificateService } from "../../service/certificateService/certificateService.js"
+import { createCertificateService, deleteCertificateByIdService, findAllCertificates, findCertificateById, findCertificateByQuery, updateCertificateService } from "../../service/certificateService/certificateService.js"
 
+import { nanoid } from "nanoid"
 export const addCerticate =   async (req , res) =>{
 
     // extracting tracking certificate details
+    let verificationCode = nanoid(6);
     let trackingCertificateDetails = {
         "companyName": req.body.companyName,
         "dateIssued":req.body.dateIssued,
         "dateExpired":req.body.dateExpired,
-        "vehilesMonitored":req.body.vehilesMonitored
+        "vehilesMonitored":req.body.vehilesMonitored,
+        "verificationCode":verificationCode,
+        "status":req.body.status
     
     }
     // pass them to the service
@@ -27,16 +31,45 @@ export const getTrackingById = async (req , res) =>{
     return res.status(200).json(foundCertificate)
 }
 
+export const getAllCertificates = async (req , res) =>{
+try {
+    let foundCertificates = await findAllCertificates();
+    return foundCertificates;
+     res.
+    status(200).
+    json(
+        {
+            success:true,
+            "message":"certificates found successfully",
+            data: foundCertificates,
+            "length":foundCertificates.length
+        }
+        )
+    
+} catch (error) {
+    return res.
+    status(404).
+    json(
+        {
+            success:false,
+            "message":error.message,
+            data: null
+        }
+        )
+
+}
+
+}
 export const getTrackingCertificateByQuery = async (req, res) =>{
     // assuming we want to query by company name
 
-    let passedCompanyName = req.query.companyName
+    let passedVerificationCode = req.query.verificationCode
 
 let searchQuery = req.query;
 
 
     let searchCriteria = {
-        "companyName": passedCompanyName
+        "verificationCode": passedVerificationCode
     }
     let foundCerticates = await findCertificateByQuery(searchCriteria)
     return res.status(200).json(foundCerticates)
