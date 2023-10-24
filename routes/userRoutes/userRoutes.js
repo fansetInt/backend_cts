@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { addUser, getTrackingById ,getTrackingUserByQuery, deleteUserById, updateUserController} from "../../controller/userController/userController.js";
-const userRoutes = Router()
+import express from 'express'
+const Router = express.Router()
+import {register ,login} from '../../controller/userController/userController.js'
 
 
-userRoutes.post('/',addUser)
-userRoutes.get('/' , getTrackingById)
-userRoutes.get('/search' , getTrackingUserByQuery)
-userRoutes.put('/' , updateUserController)
-userRoutes.delete('/' , deleteUserById)
 
-export default userRoutes
+Router.route('/register').post(register)
+Router.route('/login').post(login)
+
+
+
+export default Router

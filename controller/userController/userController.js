@@ -1,56 +1,88 @@
-import { createUserService, deleteUserByIdService, findUserById, findUserByQuery, updateUserService } from "../../service/userService/userService.js"
+import User from "../../models/UserModel.js";
+import { get_signed_token } from "../../utils/getsingedtoken.js";
 
-export const addUser =   async (req , res) =>{
+export const register = async (req, res) => {
+  const { firstname, lastname, username ,companyname, email, password,phone,address } = req.body;
+console.log(phone,address)
+  try {
+    const user = await User.create({
+      firstname,
+      lastname,
+      username,
+      companyname,
+      email,
+      password,
+      phone,
+      address,
+      balance :"0.0"
+    });
+    res.json({
+        "success":"true",
+        "token": await get_signed_token(user)
 
-    // extracting tracking user details
-    let trackingUserDetails = {
-        "username": req.body.username,
-        "password":req.body.password,
+    }).status(200)
+  } catch (error) {
+      console.log(error)
+      res.json({
+          success:"false",
+          "message":error.message
+      }).status(201);
+      return
+
+  }
+
+};
+
+export const login = async (req,res) =>{
+    console.log("......................................................")
+    const {email, password} = req.body
+    console.log(req.body)
     
+    if(!email && !password){
+        res.json({
+            "success":"false",
+            "message":"please provide email and password"
+        }).status(404)
+        return;
+
     }
-    // pass them to the service
-    let userCreated  = await createUserService(trackingUserDetails)
-    res.status(200).json(userCreated)
-} 
+    try {
+        //1 check if the useremail  is in the database
+        const user =  await User.findOne({email}).select("+password");
 
+        // check if the user exist
+        if(!user){
+            res.json({
+                "success":"false",
+                "message":"User with that details not found"
+            }).status(401)
+            return;
+        }
+        // check if the passsword match
+        if(user.password != password){
+            res.json({
+                "success":"false",
+                "message":"Provide correct password"
+            }).status(401)
+            return;
 
-export const getTrackingById = async (req , res) =>{
-    let userId = req.query.userId
-    console.log(userId)
-    let foundUser = await findUserById(userId)
+        }
 
-    return res.status(200).json(foundUser)
-}
+        // if all tests have passed then success
+        res.json({
+            "succes":"true",
+            "token":await get_signed_token(user)
+        })
 
-export const getTrackingUserByQuery = async (req, res) =>{
-    // assuming we want to query by company name
+        
+    } catch (error) {
+        console.log(error)
+        res.json({
+            "success":"false",
+            "message":error.message
 
-    let passedUsername = req.query.username
-
-let searchQuery = req.query;
-
-
-    let searchCriteria = {
-        "username": passedUsername
+        });
+        return;
+        
     }
-    let foundUser = await findUserByQuery(searchCriteria)
-    return res.status(200).json(foundUser)
-
 }
-export const updateUserController = async(req,res)=>{
-    
-    let newUpdates = req.body
-
-    let foundUser = await updateUserService(newUpdates)
-
-    return res.status(200).json(foundUser)
-}
-export const deleteUserById = async(req,res)=>{
-    console.log(req.query)
-    let userId = req.query.userId
-    console.log(userId)
-    let foundUser = await deleteUserByIdService(userId)
-
-    return res.status(200).json(userId)
-}
-

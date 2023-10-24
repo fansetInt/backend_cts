@@ -18,6 +18,11 @@ export const findCertificateByQuery = async (searchCriteria)  =>{
 export const findAllCertificates = async ()  =>{
     return await Certficate.find({})
 }
+
+// funtion to find tracking certifcate by verification code
+export const findByVerificationCode = async (verificationCode)  =>{
+    return await Certficate.find({})
+}
 //function to delete by id
 export const deleteCertificateByIdService = async(certificateId)=>{
     return await Certficate.findByIdAndDelete(certificateId)
