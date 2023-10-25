@@ -1,5 +1,9 @@
 // this file is the entry of all http calls
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import {
   createCertificateService,
   deleteCertificateByIdService,
@@ -8,6 +12,7 @@ import {
   findCertificateByQuery,
   updateCertificateService,
 } from "../../service/certificateService/certificateService.js";
+
 
 import { nanoid } from "nanoid";
 export const addCerticate = async (req, res) => {
@@ -55,6 +60,37 @@ export const getAllCertificates = async (req, res) => {
   }
 };
 
+
+export const verifyCertificateWeb = async (req, res) => {
+  let verificationCode = req.params.verificationCode;
+
+  try {
+    let searchCriteria = {
+      verificationCode: verificationCode,
+    };
+    let foundCerticates = await findCertificateByQuery(searchCriteria);
+
+    // in this case the array should have a length of 1
+    if (foundCerticates.length != 1) {
+      throw Error("Invalid Certicate verification code ");
+    }
+    //checking the expiry dates
+let trackingCert = foundCerticates[0];
+
+if(trackingCert.status == "expired"){
+    throw Error ("Certificate Expired On " + trackingCert.dateExpired)
+}
+let title = "chicken";
+    return res.render('main',{name:title});
+    
+  } catch (error) {
+    return res.status(404).json({
+      success: false,
+      message: error.message,
+      data: null,
+    });
+  }
+};
 export const verifyCertificate = async (req, res) => {
   let verificationCode = req.params.verificationCode;
 

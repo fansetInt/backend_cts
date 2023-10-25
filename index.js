@@ -16,11 +16,14 @@ import { updateCertificateService } from "./service/certificateService/certifica
 
 const app = express();
 
+app.set('view engine', 'ejs');
+// app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(cors())
 app.use(express.json());
 app.use("/certificate", certificateRoutes);
 app.use("/user", userRoutes);
+
 
 var companyNameVar = "Hello, World!";
 
