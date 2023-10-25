@@ -17,14 +17,14 @@ console.log(phone,address)
       balance :"0.0"
     });
     res.json({
-        "success":"true",
+        success:true,
         "token": await get_signed_token(user)
 
     }).status(200)
   } catch (error) {
       console.log(error)
       res.json({
-          success:"false",
+          success:false,
           "message":error.message
       }).status(201);
       return
@@ -40,7 +40,7 @@ export const login = async (req,res) =>{
     
     if(!email && !password){
         res.json({
-            "success":"false",
+            success:false,
             "message":"please provide email and password"
         }).status(404)
         return;
@@ -50,10 +50,11 @@ export const login = async (req,res) =>{
         //1 check if the useremail  is in the database
         const user =  await User.findOne({email}).select("+password");
 
+        
         // check if the user exist
         if(!user){
             res.json({
-                "success":"false",
+                success:false,
                 "message":"User with that details not found"
             }).status(401)
             return;
@@ -61,7 +62,7 @@ export const login = async (req,res) =>{
         // check if the passsword match
         if(user.password != password){
             res.json({
-                "success":"false",
+                success:false,
                 "message":"Provide correct password"
             }).status(401)
             return;
@@ -70,7 +71,7 @@ export const login = async (req,res) =>{
 
         // if all tests have passed then success
         res.json({
-            "succes":"true",
+            success:true,
             "token":await get_signed_token(user)
         })
 
