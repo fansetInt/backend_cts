@@ -25,29 +25,14 @@ app.use("/certificate", certificateRoutes);
 app.use("/user", userRoutes);
 
 
-var companyNameVar = "Hello, World!";
+const PORT = 5000
 
-// cron.schedule("* * * * * *", async () => {
-//   let today = new Date();
-//   let certificates = await getAllCertificates();
-//   // console.log(certificates)
 
-//   certificates.map(async(certificate) =>  {
-//     if (certificate.dateExpired < today) {
-//      await updateCertificateService({
-//         certificateId: certificate._id,
-//         status: "expired",
-//       });
 
-//       return;
-//     }
-//   });
-// });
 
-// Listen on port 2000
-app.listen(4000, async () => {
+app.listen(PORT, async () => {
   // connect to db
   await connectDb();
   console.log("successfully connected to db !!!");
-  console.log("listening at http://localhost:4000");
+  console.log(`listening at http://localhost:${PORT}`);
 });
