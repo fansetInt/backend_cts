@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Status Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .status-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-text {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .active {
+            color: green;
+        }
+
+        .inactive {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Status Example</h1>
+
+    <div class="status-container">
+        <span class="status-text">Status:</span>
+        <span id="status" class="status"></span>
+    </div>
+
+    <script>
+        // Change the status here
+        var status = "active";
+
+        // Get the status element
+        var statusElement = document.getElementById("status");
+
+        // Set the status text and class based on the status value
+        if (status === "active") {
+            statusElement.textContent = "Active";
+            statusElement.className = "status active";
+        } else {
+            statusElement.textContent = "Inactive";
+            statusElement.className = "status inactive";
+        }
+    </script>
+</body>
+</html>
