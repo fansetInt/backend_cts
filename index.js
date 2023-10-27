@@ -9,9 +9,9 @@ app.use(express.json());
 app.use("/auth" ,authRoutes)
 
 // Listen on port 2000
-app.listen(2000,  async() => {
+app.listen(4000,  async() => {
     // connect to db
     await connectDb()
     console.log("successfully connected to db !!!")
-    console.log('listening at http://localhost:2000');
+    console.log('listening at http://localhost:4000');
 });
