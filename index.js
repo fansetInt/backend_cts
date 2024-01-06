@@ -25,6 +25,7 @@ app.use("/certificate", certificateRoutes);
 app.use("/user", userRoutes);
 
 
+// specific 4040 for mapping with nginx server 
 const PORT = 4040
 
 app.listen(PORT, async () => {
