@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import Certficate from "../../models/Certificate.js";
 
 export const createCertificateService = async ( certificateDetailsObject) =>{
+
+    
     // saving the document in db
     return await  Certficate.create(certificateDetailsObject)
 }

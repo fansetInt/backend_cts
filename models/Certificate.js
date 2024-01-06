@@ -7,6 +7,16 @@ const CertificateSchema = new mongoose.Schema({
      vehilesMonitored:[String],
      verificationCode:String,
      status:String,
+
+
+     // speed limiter additional fields
+     maximumSpeed : String, 
+     vehicleModel:String,
+     chassisNumber:String, 
+     engineNumber:String , 
+     bodyType:String, 
+     deviceModel:String,
+     deviceSerialNumber:String
      
     });
    

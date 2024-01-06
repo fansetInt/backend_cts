@@ -15,15 +15,27 @@ import {
 
 import { nanoid } from "nanoid";
 export const addCerticate = async (req, res) => {
+
+
+
   // extracting tracking certificate details
   let verificationCode = nanoid(6);
   let trackingCertificateDetails = {
     companyName: req.body.companyName,
+    deviceModel: req.body.deviceModel,
+    serialNumber: req.body.serialNumber,
     dateIssued: req.body.dateIssued,
     dateExpired: req.body.dateExpired,
     vehilesMonitored: req.body.vehilesMonitored,
     verificationCode: verificationCode,
     status: req.body.status,
+    maximumSpeed :req.body.maximumSpeed, 
+    vehicleModel:req.body.vehicleModel,
+    chassisNumber: req.body.chassisNumber, 
+    engineNumber :req.body.engineNumber, 
+    bodyType: req.body.bodyType, 
+    deviceModel: req.body.deviceModel,
+    deviceSerialNumber:req.body.deviceSerialNumber
   };
   // pass them to the service
   let certificateCreated = await createCertificateService(

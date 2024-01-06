@@ -25,7 +25,7 @@ app.use("/certificate", certificateRoutes);
 app.use("/user", userRoutes);
 
 
-const PORT = 4040
+const PORT = 4000
 
 
 
