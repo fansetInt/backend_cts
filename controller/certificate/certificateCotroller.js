@@ -14,8 +14,10 @@ import {
 
 
 import { nanoid } from "nanoid";
+import Certficate from '../../models/Certificate.js';
 export const addCerticate = async (req, res) => {
 // console.log(req.body)
+let certNumber = "SPD" + 10000 +  await Certficate.count();
 
 
   // extracting tracking certificate details
@@ -29,6 +31,7 @@ export const addCerticate = async (req, res) => {
     vehilesMonitored: req.body.vehilesMonitored,
     verificationCode: verificationCode,
     status: req.body.status,
+    certificateNumber: certNumber,
     maximumSpeed :req.body.maximumSpeed, 
     vehicleModel:req.body.vehicleModel,
     chassisNumber: req.body.chassisNumber, 
