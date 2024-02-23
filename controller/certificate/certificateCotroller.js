@@ -24,6 +24,7 @@ let certNumber = "SPD" + 10000 +  await Certficate.count();
   let verificationCode = nanoid(6);
   let trackingCertificateDetails = {
     companyName: req.body.companyName,
+    certificateType: req.body.certificateType,
     deviceModel: req.body.deviceModel,
     serialNumber: req.body.serialNumber,
     dateIssued: req.body.issuedOn,
@@ -58,7 +59,11 @@ export const getTrackingById = async (req, res) => {
 export const getAllCertificates = async (req, res) => {
   try {
     let foundCertificates = await findAllCertificates();
-    return foundCertificates;
+    console.log(foundCertificates)
+    return res.json({
+      data:foundCertificates
+    })
+     foundCertificates;
     res.status(200).json({
       success: true,
       message: "certificates found successfully",
@@ -162,4 +167,34 @@ export const updateCertificateController = async (req, res) => {
   let foundCertificate = await updateCertificateService(newUpdates);
 
   return res.status(200).json(foundCertificate);
+};
+
+
+// getting statistics 
+export const getCertificateStatistics = async (req, res) => {
+ 
+
+  try {
+
+    let totalSLFromDb = await Certficate.find({certificateType:"sl"}).count()
+    let totalSMFromDb = await Certficate.find({certificateType:"sm"}).count()
+    let totalTRFromDb = await Certficate.find({certificateType:"tr"}).count()
+
+    let desiredRes = {
+      totalSL:totalSLFromDb,
+      totalSM:totalSMFromDb,
+      totalTR:totalTRFromDb
+
+    }
+    
+
+
+    return res.status(200).json(desiredRes);
+  } catch (error) {
+    return res.status(404).json({
+      success: false,
+      message: error.message,
+      data: null,
+    });
+  }
 };

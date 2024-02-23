@@ -7,6 +7,7 @@ const CertificateSchema = new mongoose.Schema({
      vehilesMonitored:[String],
      verificationCode:String,
      status:String,
+     certificateType: String,
 
 
      // speed limiter additional fields
