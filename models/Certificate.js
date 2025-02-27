@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const CertificateSchema = new mongoose.Schema({
+
     companyName:String,
      dateIssued: Date,
      dateExpired:Date,
@@ -18,7 +19,11 @@ const CertificateSchema = new mongoose.Schema({
      engineNumber:String , 
      bodyType:String, 
      deviceModel:String,
-     deviceSerialNumber:String
+     deviceSerialNumber:String,
+     //additional on the vehicle
+     make:String,
+     color:String,
+     dateOfInstallation:Date
      
     });
    

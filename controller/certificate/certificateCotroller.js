@@ -39,7 +39,10 @@ let certNumber = "SPD" + 10000 +  await Certficate.count();
     engineNumber :req.body.engineNumber, 
     bodyType: req.body.bodyType, 
     deviceModel: req.body.deviceModel,
-    deviceSerialNumber:req.body.deviceSerialNumber
+    deviceSerialNumber:req.body.deviceSerialNumber,
+    make:req.body.make,
+    color:req.body.color,
+    dateOfInstallation:req.body.dateOfInstallation
   };
   // pass them to the service
   let certificateCreated = await createCertificateService(
