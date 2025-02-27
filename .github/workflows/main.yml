@@ -47,7 +47,6 @@ jobs:
           dockerfile: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/murimibackend:certificate
-
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@v0.1.9
         with:
