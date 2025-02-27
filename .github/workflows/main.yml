@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+
 jobs:
   build-deploy:
     name: Build and Deploy
@@ -23,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Build the Application
-        # run: npm run build --if-present
+        run: npm run build --if-present  # <-- Uncommented this line
 
       - name: Build Docker Image
         uses: docker/build-push-action@v2
